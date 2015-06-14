@@ -8,7 +8,7 @@
       </paper-toolbar>
 
       <paper-drawer-panel>
-        <war-list drawer date={{date}}>
+        <war-list drawer date="{{date}}">
         </war-list>
         <div main>
           main
@@ -22,7 +22,9 @@
     Polymer({
       is: 'war-app',
       properties: {
-        date: { observer: '_onDateChanged' }
+        date: {
+          observer: '_onDateChanged'
+        }
       },
       _onDateChanged: function() {
         console.log(arguments);

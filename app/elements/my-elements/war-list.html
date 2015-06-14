@@ -4,12 +4,12 @@
 <dom-module id="war-list">
   <template>
     <iron-ajax auto
-            url="http://localhost:9000/v1/tags/dates"
+            url="http://coc.blmarket.net/v1/tags/dates"
             handleAs="json"
             last-response="{{data}}">
     </iron-ajax>
     <paper-menu class="list" selected="{{selectedIndex}}">
-      <template is="dom-repeat" items="{{data}}">
+      <template is="dom-repeat" items="[[data]]">
         <paper-item>
           <paper-item-body>
             <span>[[item.date]]</span>
@@ -29,12 +29,14 @@ Polymer({
       value: -1,
       observer: '_onChanged'
     },
-    data: {},
-    date: {}
+    date: {
+      type: String,
+      notify: true
+    }
   },
   _onChanged: function(idx) {
     if (this.data !== null && idx >= 0) {
-      this.date = this.data[idx];
+      this.set('date', this.data[idx].date);
     }
   }
 });
