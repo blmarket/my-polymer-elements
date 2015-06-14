@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../elements.html">
+
+<dom-module id="war-list">
+  <template>
+    <iron-ajax auto
+            url="http://localhost:9000/v1/tags/dates"
+            handleAs="json"
+            last-response="{{data}}">
+    </iron-ajax>
+    <paper-menu class="list" selected="{{selectedIndex}}">
+      <template is="dom-repeat" items="{{data}}">
+        <paper-item>
+          <paper-item-body>
+            <span>[[item.date]]</span>
+          </paper-item-body>
+        </paper-item>
+      </template>
+    </paper-menu>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+  is: 'war-list',
+  properties: {
+    selectedIndex: {
+      type: Number,
+      value: -1,
+      observer: '_onChanged'
+    },
+    data: {},
+    date: {}
+  },
+  _onChanged: function(idx) {
+    if (this.data !== null && idx >= 0) {
+      this.date = this.data[idx];
+    }
+  }
+});
+</script>

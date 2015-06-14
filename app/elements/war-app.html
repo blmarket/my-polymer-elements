@@ -1,0 +1,34 @@
+<link rel="import" href="elements.html">
+
+<dom-module id="war-app">
+  <template>
+    <paper-header-panel class="flex">
+      <paper-toolbar>
+        <div>Hello World! long long title asdf news asdf news</div>
+      </paper-toolbar>
+
+      <paper-drawer-panel>
+        <war-list drawer date={{date}}>
+        </war-list>
+        <div main>
+          main
+        </div>
+      </paper-drawer-panel>
+    </paper-header-panel>
+  </template>
+
+  <script>
+
+    Polymer({
+      is: 'war-app',
+      properties: {
+        date: { observer: '_onDateChanged' }
+      },
+      _onDateChanged: function() {
+        console.log(arguments);
+      }
+    });
+
+  </script>
+</dom-module>
+
