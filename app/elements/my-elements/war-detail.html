@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../elements.html">
+
+<dom-module id="war-detail">
+  <template>
+    <iron-ajax id="fetch_detail"
+            auto
+            verbose=true
+            handleAs="json"
+            last-response="{{data}}">
+    </iron-ajax>
+    <div>Halo Hworld! <span>{{date}}</span></div>
+    <div block>
+      <template is="dom-repeat" items="[[data]]">
+        <paper-item>
+          <paper-item-body>
+            <img src="[[item.image_url]]"></img>
+          </paper-item-body>
+        </paper-item>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+  is: 'war-detail',
+  properties: {
+    date: {
+      type: String,
+      notify: true,
+      observer: '_onDateChanged'
+    },
+    data: {
+      observer: '_onDataChanged'
+    }
+  },
+  _onDateChanged: function(newDate, oldDate) {
+    this.$.fetch_detail.url = this._computeUrl();
+  },
+  _computeUrl: function() {
+    return "http://coc.blmarket.net/v1/tags/date/" + this.date;
+  },
+  _onDataChanged: function() {
+    console.log(this.data);
+  }
+});
+</script>
