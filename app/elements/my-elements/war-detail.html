@@ -38,7 +38,7 @@ Polymer({
     },
     converted: {}
   },
-  _onDateChanged: function(newDate, oldDate) {
+  _onDateChanged: function() {
     this.$.fetchDetail.url = "http://coc.blmarket.net/v1/tags/date/" + this.date;
   },
   _onDataChanged: function() {
