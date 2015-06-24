@@ -13,7 +13,7 @@
       <template is="dom-repeat" items="[[converted]]">
         <paper-item>
           <paper-item-body class="layout inline">
-            <a href="[[item.user_url]]" class="layout inline">
+            <a href="[[item.userUrl]]" class="layout inline">
               <img src="[[item.image_url]]"></img>
             </a>
           </paper-item-body>
@@ -48,7 +48,7 @@ Polymer({
         tagObj[it.name] = it.value;
       });
       x.tagObj = tagObj;
-      x.user_url = "http://coc.blmarket.net/user/" +
+      x.userUrl = "http://coc.blmarket.net/user/" +
         encodeURIComponent(x.tagObj['name']);
       return x;
     }));
