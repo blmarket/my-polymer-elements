@@ -3,18 +3,19 @@
 
 <dom-module id="war-detail">
   <template>
-    <iron-ajax id="fetch_detail"
+    <iron-ajax id="fetchDetail"
             auto
             verbose=true
             handleAs="json"
             last-response="{{data}}">
     </iron-ajax>
-    <div>Halo Hworld! <span>{{date}}</span></div>
     <div block>
-      <template is="dom-repeat" items="[[data]]">
+      <template is="dom-repeat" items="[[converted]]">
         <paper-item>
-          <paper-item-body>
-            <img src="[[item.image_url]]"></img>
+          <paper-item-body class="layout inline">
+            <a href="[[item.user_url]]" class="layout inline">
+              <img src="[[item.image_url]]"></img>
+            </a>
           </paper-item-body>
         </paper-item>
       </template>
@@ -22,6 +23,7 @@
   </template>
 </dom-module>
 
+<script src="../../../bower_components/lodash/lodash.js"></script>
 <script>
 Polymer({
   is: 'war-detail',
@@ -29,20 +31,27 @@ Polymer({
     date: {
       type: String,
       notify: true,
-      observer: '_onDateChanged'
+      observer: "_onDateChanged"
     },
     data: {
-      observer: '_onDataChanged'
-    }
+      observer: "_onDataChanged"
+    },
+    converted: {}
   },
   _onDateChanged: function(newDate, oldDate) {
-    this.$.fetch_detail.url = this._computeUrl();
-  },
-  _computeUrl: function() {
-    return "http://coc.blmarket.net/v1/tags/date/" + this.date;
+    this.$.fetchDetail.url = "http://coc.blmarket.net/v1/tags/date/" + this.date;
   },
   _onDataChanged: function() {
-    console.log(this.data);
+    this.set('converted', _.map(this.data, function(x) {
+      var tagObj = {};
+      _.each(x.tags, function(it) {
+        tagObj[it.name] = it.value;
+      });
+      x.tagObj = tagObj;
+      x.user_url = "http://coc.blmarket.net/user/" +
+        encodeURIComponent(x.tagObj['name']);
+      return x;
+    }));
   }
 });
 </script>
