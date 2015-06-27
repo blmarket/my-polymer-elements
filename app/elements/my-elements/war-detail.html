@@ -39,7 +39,7 @@ Polymer({
     converted: {}
   },
   _onDateChanged: function() {
-    this.$.fetchDetail.url = 'http://coc.blmarket.net/v1/tags/date/' + this.date;
+    this.$.fetchDetail.url = 'http://coc_old.blmarket.net/v1/tags/date/' + this.date;
   },
   _onDataChanged: function() {
     this.set('converted', _.map(this.data, function(x) {
@@ -48,7 +48,7 @@ Polymer({
         tagObj[it.name] = it.value;
       });
       x.tagObj = tagObj;
-      x.userUrl = 'http://coc.blmarket.net/user/' +
+      x.userUrl = 'http://coc_old.blmarket.net/user/' +
         encodeURIComponent(x.tagObj.name);
       return x;
     }));
