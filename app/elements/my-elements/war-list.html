@@ -9,10 +9,18 @@
             last-response="{{data}}">
     </iron-ajax>
     <paper-menu class="list" selected="{{selectedIndex}}">
-      <template is="dom-repeat" items="[[data]]">
+      <template is="dom-repeat" items="[[data]]" as="item" indexAs="index">
         <paper-item>
-          <paper-item-body>
-            <span>[[item.date]]</span>
+          <paper-item-body two-line>
+            <div>
+              <span>[[item.date]]</span>
+              <template is="dom-if" if="{{_isFirst(index)}}" restamp="true">
+                <span>(latest)</span>
+              </template>
+            </div>
+            <div>
+              <!-- TODO: war detail -->
+            </div>
           </paper-item-body>
         </paper-item>
       </template>
@@ -38,6 +46,10 @@ Polymer({
     if (this.data !== null && idx >= 0) {
       this.set('date', this.data[idx].date);
     }
+  },
+  _isFirst: function(idx) {
+    console.log(idx, !idx);
+    return !idx;
   }
 });
 </script>
